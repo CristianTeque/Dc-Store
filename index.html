@@ -1214,6 +1214,18 @@
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){ closeModal(); lightbox.classList.remove('open'); }
   });
+
+  // Abrir un producto automáticamente si llega desde un link con ?producto=ID
+  // Ejemplo: dcstores.netlify.app/?producto=z0c abre la Nike Downshifter 13
+  var params = new URLSearchParams(window.location.search);
+  var pid = params.get('producto');
+  if(pid){
+    var target = document.querySelector('.prod-card[data-id="' + pid + '"]');
+    if(target){
+      target.scrollIntoView({ behavior: 'auto', block: 'center' });
+      setTimeout(function(){ openModalFor(target); }, 300);
+    }
+  }
 })();
 </script>
 
